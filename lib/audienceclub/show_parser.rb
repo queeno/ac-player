@@ -35,6 +35,7 @@ module AudienceClub
         show.date = dates.shift.text.split.join(' ')
       end
 
+      shows
     end
   end
 end
