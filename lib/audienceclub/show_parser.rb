@@ -32,10 +32,13 @@ module AudienceClub
         theatre_postcode = venues.shift.text.split(' '*10)
         show.theatre = theatre_postcode[0]
         show.postcode = theatre_postcode[1]
-        show.date = dates.shift.text.split.join(' ')
+        date_waitlist = dates.shift.text.split.join(' ')
+        show.date_time = DateTime.parse(date_waitlist)
+        date_waitlist.include?('Waitlist Only') ? show.waitlist = true : show.waitlist = false
+        date_waitlist.include?('Sold Out') ? show.soldout = true : show.soldout = false
       end
 
-      shows
+    shows.each { |d| puts d.inspect }
     end
   end
 end
