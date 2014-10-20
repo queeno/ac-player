@@ -32,10 +32,8 @@ module AudienceClub
         theatre_postcode = venues.shift.text.split(' '*10)
         show.theatre = theatre_postcode[0]
         show.postcode = theatre_postcode[1]
-        show.date = dates.shift.text
+        show.date = dates.shift.text.split.join(' ')
       end
-
-      shows.each {|d| puts d.postcode }
 
     end
   end
