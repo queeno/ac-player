@@ -5,6 +5,10 @@ module AudienceClub
 
     attr_accessor :shows_page
 
+    def initialize(shows_page)
+      @shows_page = shows_page
+    end
+
     def get_info(attribute)
       return @shows_page.search(".#{attribute}")
     end
@@ -38,7 +42,7 @@ module AudienceClub
         date_waitlist.include?('Sold Out') ? show.soldout = true : show.soldout = false
       end
 
-    shows.each { |d| puts d.inspect }
+      shows.each { |d| puts "#{d.title} @ #{d.theatre}" }
     end
   end
 end
