@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+
+require 'ac-player'
+
+login = Crawler::Login.new
+
+shows_page = login.do_login
+
+show_parser = AudienceClub::ShowParser.new(shows_page)
+
+show_parser.build_shows
+
