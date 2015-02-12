@@ -6,7 +6,7 @@ require 'ac-player'
 
 login = Crawler::Login.new
 
-shows_page = login.do_login
+shows_page = login.run
 
 show_parser = AudienceClub::ShowParser.new(shows_page)
 
