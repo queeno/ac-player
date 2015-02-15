@@ -2,15 +2,21 @@
 
 require 'crawler/browser'
 require 'crawler/config'
+require 'tools/logger'
 
 module Crawler
 
   class Login
 
+    def initialize
+      @logger = Tools::Logger.instance
+    end
+
     def skip_announce_pages
       begin
         @current_page.forms.each do |form|
           if form.button_with(:value => /Click Here/)
+            @logger.info 'Skipping welcome page...'
             @current_page = form.click_button
           else
             raise "Exception: Can't find 'Click here' button to click in announce page"
