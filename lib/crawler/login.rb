@@ -25,6 +25,7 @@ module Crawler
           end
         end
       end until @current_page.link_with(:text => /Theatre Ladder/)
+      @logger.info 'Landed on the shows page!'
     end
 
     def do_login
@@ -40,6 +41,7 @@ module Crawler
 
       # Hit submit and return next page
       @current_page = login_form.click_button
+      @logger.info "Submitted login form."
 
     end
 
