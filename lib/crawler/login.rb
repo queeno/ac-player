@@ -20,7 +20,7 @@ module Crawler
             @logger.info 'Skipping welcome page...'
             @current_page = form.click_button
           else
-            @logger.error "Exception: Can't find 'Click here' button to click in announce page"
+            @logger.error "Exception: Can't find the 'Click here' button to click in announce page"
             raise Tools::NoButtonInWelcomePage
           end
         end
