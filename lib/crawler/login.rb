@@ -28,14 +28,36 @@ module Crawler
       @logger.info 'Landed on the shows page!'
     end
 
+    def logged_in_already?
+      @logger.info 'Determining if user was already logged in...' 
+
+      if @current_page.nil?
+        @logger.info 'User was never logged in.'
+        false
+      end
+
+      ac_ladder_full_url = "#{Crawler::AC_LOGIN_URL}#{Crawler::AC_THEATRE_LADDER_PATH}"
+      @current_page = Crawler.browser.get(ac_ladder_full_url)
+
+      if @current_page.link_with(:text => /Theatre Ladder/)
+        @logger.info 'User was already logged in.'
+        true
+      else
+        @logger.info 'User was not logged in.'
+        false
+      end
+    end
+
     def do_login
       # Get a login page
+      @logger.info "Opening webpage #{Crawler::AC_LOGIN_URL}"
       @current_page = Crawler.browser.get(Crawler::AC_LOGIN_URL)
 
       # Get a login form
       login_form = @current_page.form_with(:name => /login/)
 
       # Set the login fields
+      @logger.info 'Filling the login form' 
       login_form.field_with(:type => /email/).value = Crawler::EMAIL
       login_form.field_with(:type => /password/).value = Crawler::PASSWD
 
@@ -46,9 +68,10 @@ module Crawler
     end
 
     def run
-      do_login
-      skip_announce_pages
-
+      if not logged_in_already?
+        do_login
+        skip_announce_pages
+      end
       @current_page
     end
 

@@ -9,6 +9,7 @@ module Crawler
   end
 
   AC_LOGIN_URL = load_config_file['login_url']
+  AC_THEATRE_LADDER_PATH = load_config_file['theatre_ladder_path']
   EMAIL = load_config_file['email']
   PASSWD = load_config_file['password']
 
