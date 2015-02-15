@@ -33,18 +33,18 @@ module Crawler
 
       if @current_page.nil?
         @logger.info 'User was never logged in.'
-        false
+        return false
       end
-
+      
       ac_ladder_full_url = "#{Crawler::AC_LOGIN_URL}#{Crawler::AC_THEATRE_LADDER_PATH}"
       @current_page = Crawler.browser.get(ac_ladder_full_url)
 
       if @current_page.link_with(:text => /Theatre Ladder/)
         @logger.info 'User was already logged in.'
-        true
+        return true
       else
         @logger.info 'User was not logged in.'
-        false
+        return false
       end
     end
 
