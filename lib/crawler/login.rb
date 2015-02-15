@@ -3,6 +3,7 @@
 require 'crawler/browser'
 require 'crawler/config'
 require 'tools/logger'
+require 'tools/exceptions'
 
 module Crawler
 
@@ -19,7 +20,8 @@ module Crawler
             @logger.info 'Skipping welcome page...'
             @current_page = form.click_button
           else
-            raise "Exception: Can't find 'Click here' button to click in announce page"
+            @logger.error "Exception: Can't find 'Click here' button to click in announce page"
+            raise Tools::NoButtonInWelcomePage
           end
         end
       end until @current_page.link_with(:text => /Theatre Ladder/)
