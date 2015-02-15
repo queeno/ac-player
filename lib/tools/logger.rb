@@ -8,21 +8,15 @@ module Tools
 
     include Singleton
 
-    attr_reader :output
-
-    def initialize
-      @output = Array.new
-    end
-
     def error(message)
-      output << formatted_message(message, 'ERROR')
+      write formatted_message(message, 'ERROR')
     end
 
     def info(message)
-      output << formatted_message(message, 'INFO')
+      write formatted_message(message, 'INFO')
     end
 
-    def write
+    def write(output)
       puts output
     end
 

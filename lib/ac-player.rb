@@ -14,7 +14,6 @@ class App
     shows_page = login.run
     show_parser = AudienceClub::ShowParser.new(shows_page)
     show_parser.build_shows
-    @logger.write
   end
 
 end
