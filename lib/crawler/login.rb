@@ -75,7 +75,7 @@ module Crawler
       @current_page
     end
 
-  private :do_login, :skip_announce_pages
+    private :do_login, :skip_announce_pages, :logged_in_already?
 
   end
 
