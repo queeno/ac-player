@@ -13,19 +13,28 @@ module Crawler
       @logger = Tools::Logger.instance
     end
 
+    def skip_genre_page
+      @logger.info 'Skipping genre page...'
+      az_shows_link = @current_page.link_with(:text => /A-Z/)
+      @current_page = az_shows_link.click
+      @logger.info 'Landed on the shows page'
+    end
+
     def skip_announce_pages
       begin
         @current_page.forms.each do |form|
           if form.button_with(:value => /Click Here/)
             @logger.info 'Skipping welcome page...'
             @current_page = form.click_button
-          else
+         else
             @logger.error "Exception: Can't find the 'Click here' button to click in announce page"
             raise Tools::NoButtonInWelcomePage
           end
         end
-      end until @current_page.link_with(:text => /Theatre Ladder/)
-      @logger.info 'Landed on the shows page!'
+      end until @current_page.link_with(:text => /A-Z/)
+      @logger.info 'Landed on the intro page!'
+
+      skip_genre_page
     end
 
     def logged_in_already?
@@ -54,7 +63,7 @@ module Crawler
       @current_page = Crawler.browser.get(Crawler::AC_LOGIN_URL)
 
       # Get a login form
-      login_form = @current_page.form_with(:name => /login/)
+      login_form = @current_page.form_with(:method => /POST/)
 
       # Set the login fields
       @logger.info 'Filling the login form' 

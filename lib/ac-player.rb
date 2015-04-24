@@ -12,12 +12,12 @@ class App
 
   def run
     @logger.info "Starting app..."
-    @context.run
+    #@context.run
 
-    #login = Crawler::Login.new
-    #shows_page = login.run
-    #show_parser = AudienceClub::ShowParser.new(shows_page)
-    #show_parser.build_shows
+    login = Crawler::Login.new
+    shows_page = login.run
+    show_parser = AudienceClub::ShowParser.new(shows_page)
+    show_parser.build_shows
   end
 
 end
