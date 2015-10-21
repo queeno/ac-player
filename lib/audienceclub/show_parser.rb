@@ -38,8 +38,8 @@ module AudienceClub
         show.postcode = theatre_postcode[1].strip
         date_time = dates.shift.text.strip.split(/\r?\n/)[0].strip.gsub('Shows from ','')
         show.date_time = DateTime.parse(date_time)
-        date_waitlist.include?('Waitlist Only') ? show.waitlist = true : show.waitlist = false
-        date_waitlist.include?('Sold Out') ? show.soldout = true : show.soldout = false
+        date_time.include?('Waitlist Only') ? show.waitlist = true : show.waitlist = false
+        date_time.include?('Sold Out') ? show.soldout = true : show.soldout = false
       end
 
       shows.each { |d| puts "#{d.title} @ #{d.theatre}" }
